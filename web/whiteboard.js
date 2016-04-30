@@ -27,11 +27,8 @@ document.getElementById("download").addEventListener("click",function(){
 });
 
 document.getElementById("clear").addEventListener("click",function(){
-   
-   
     context.fillStyle = "gray";
     context.fillRect(0,0,canvas.width,canvas.height);
-    
 });
 
 function getCurrentPos(evt) {
@@ -44,25 +41,20 @@ function getCurrentPos(evt) {
 
 function startLine(evt){
     var currentPos = getCurrentPos(evt);
-    for (i = 0; i < document.inputForm.color.length; i++) {
-        if (document.inputForm.color[i].checked) {
-            var color = document.inputForm.color[i];
-            break;
-        }
-    }
-    
-    for (i = 0; i < document.inputForm.size.length; i++) {
-        if (document.inputForm.size[i].checked) {
-            var size = document.inputForm.size[i];
-            break;
-        }
-    }
+    var color;
+    var size ;
+    $("#colores option:selected").each(function(){ //#color hace referencia al select //:selected es la propiedad que permite obtener la opcion selecionada
+                   color = $(this).attr('value') ;//this, indica el la opcion selecionada actualmente  attr() es por asi decirlo el get de las opciones
+                   console.log("################# color: "+color);
+     });
+    size = document.getElementById("myRange").value; //Obtener el valor del input
+     console.log("################# size: "+size);
     
     var json = JSON.stringify({
         "action": "startLine",
         "shape": "circle",
-        "color": color.value,
-        "size": size.value,
+        "color": color,
+        "size": size,
         "coords": {
             "x": currentPos.x,
             "y": currentPos.y
@@ -91,21 +83,12 @@ function closeLine(evt){
 
 
 function defineImage(evt) {
-    
-   
         var currentPos = getCurrentPos(evt);
-    
-    for (i = 0; i < document.inputForm.color.length; i++) {
-        if (document.inputForm.color[i].checked) {
-            var color = document.inputForm.color[i];
-            break;
-        }
-    }
-            
-    
-    
-    
-    
+  var color ;
+    $("#colores option:selected").each(function(){ //#color hace referencia al select //:selected es la propiedad que permite obtener la opcion selecionada
+                   color = $(this).attr('value') ;//this, indica el la opcion selecionada actualmente  attr() es por asi decirlo el get de las opciones
+     });
+   
     var json = JSON.stringify({
         "action": "draw",
         "shape": "circle",
@@ -120,20 +103,6 @@ function defineImage(evt) {
         
     }
     
-    
-
-function clear(){
-    
-
-    
-
-
-    
-}
-
-function download(){
-    
-}
 
 
 function drawImageText(image) {
